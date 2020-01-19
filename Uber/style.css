@@ -1,0 +1,24 @@
+.mainContainer{
+        display: flex;
+    width: 50%;
+    /* text-align: center; */
+    justify-content: center;
+    margin: 0 auto;
+    flex-direction: column;
+
+   
+    
+}
+
+.heading{
+    text-align: center
+}
+
+input[type="text"]{
+    width: 100%;
+    height: 30px;
+    outline: 0;
+    font-size: 1.5em;
+  background: #fff;
+  color: #2f4f4f;
+}
