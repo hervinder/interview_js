@@ -1,0 +1,110 @@
+1.How to find all pairs on integer array whose sum is equal to given number ?
+
+Given array : [2, 4, 3, 5, 6, -2, 4, 7, 8, 9]
+Given sum : 7 Integer numbers,
+whose sum is equal to value : 7 (2, 5) (4, 3) (3, 4) (-2, 9)
+
+pattern 1 : What we can do here is to store all numbers in a hashtable and just check if it contains second value in a pair. For example, if given sum is 4 and one number in pair is 3, then other must be 1 or -7.
+          complexity : O(n)
+
+pattern 2: A more efficient in-place solution would be to sort the array and use two pointers to scan through array from both direction i.e. beginning and end. If sum of both the values are equal to given number then we output the pair and advance them. If the sum of two numbers is less than k then we increase the left pointer, else if the sum is greater than k we decrement the right pointer, until both pointers meet at some part of the array. The complexity of this solution would be O(NlogN) due to sorting.
+          complexity : O(nlogn)
+
+
+2.How to find kth smallest/ largest element in unsorted array? (solution)
+
+
+For example if given array is {1, 2, 3, 9, 4} and k=2 then you need to find the 2nd smallest number in the array, which is 2.
+
+This is an optimization over method 1 if QuickSort is used as a sorting algorithm in first step.
+In QuickSort, we pick a pivot element, then move the pivot element to its correct position and partition the array around it.
+The idea is, not to do complete quicksort, but stop at the point where pivot itself is k’th smallest element. Also, not to recur for both left and right sides of pivot, but recur for one of them according to the position of pivot. The worst case time complexity of this method is O(n2), but it works in O(n) on average.
+
+3. How to find the smallest positive integer value that cannot be represented as sum of any subset of a given array
+
+exmaple arr=[1,1,1,1,1];
+output - 5
+logic -
+sum =1;
+for(var i=0; i< arr.length; i++){
+    if(arr[i] <=sum){
+        sum = sum + arr[i];
+    }
+}
+
+4. How to rearrange array in alternating positive and negative number? (solution)
+
+Example:
+
+Input: {1, 2, 3, -4, -1, 4}
+Output: {-4, 1, -1, 2, 3, 4}
+
+Input: {-5, -2, 5, 2, 4, 7, 1, 8, 0, -8}
+output: {-5, 5, -2, 2, -8, 4, 7, 1, 8, 0} 
+
+
+The solution is to first separate positive and negative numbers using partition process of QuickSort.
+In the partition process, consider 0 as value of pivot element so that all negative numbers are placed before positive numbers. 
+Once negative and positive numbers are separated, we start from the first negative number and first positive number, and swap every alternate negative number with next positive number.
+
+5. How to find if there is a sub array with sum equal to zero?
+
+Input: {4, 2, -3, 1, 6}
+Output: true 
+There is a subarray with zero sum from index 1 to 3.
+
+arr[] = {1, 4, -2, -2, 5, -4, 3}
+
+If we consider all prefix sums, we can
+notice that there is a subarray with 0
+sum when :
+1) Either a prefix sum repeats or
+2) Or prefix sum becomes 0.
+
+Prefix sums for above array are:
+1, 5, 3, 1, 6, 2, 5
+
+Since prefix sum 1 repeats, we have a subarray
+with 0 sum.
+
+6. How to find sub array with maximum sum in an array of positive and negative number?
+
+
+For example, given the array [−2,1,−3,4,−1,2,1,−5,4],
+the contiguous subarray [4,−1,2,1] has the largest sum = 6. 
+
+Each time negative no occur move to next index; 
+
+Simple idea of the Kadane’s algorithm is to look for all positive contiguous segments of the array (max_ending_here is used for this).
+ And keep track of maximum sum contiguous segment among all positive segments (max_so_far is used for this).
+  Each time we get a positive sum compare it with max_so_far and update max_so_far if it is greater than max_so_far
+
+  Kadane’s Algorithm:
+
+
+
+Initialize:
+    max_so_far = 0
+    max_ending_here = 0
+
+Loop for each element of the array
+  (a) max_ending_here = max_ending_here + a[i]
+  (b) if(max_ending_here < 0)
+            max_ending_here = 0
+  (c) if(max_so_far < max_ending_here)
+            max_so_far = max_ending_here
+return max_so_far
+
+
+
+7.Write a program to find length of longest consecutive sequence in array of integers?
+
+Given [100, 4, 200, 1, 3, 2],
+The longest consecutive elements sequence is [1, 2, 3, 4]. Return its length: 4.
+
+One Solution is to first sort the array and find the longest subarray with consecutive elements. Time complexity of this solution is O(nLogn). Thanks to Hao.W for suggesting this solution.
+
+We can solve this problem in O(n) time using an Efficient Solution. The idea is to use Hashing. We first insert all elements in a Set.
+Then check all the possible starts of consecutive subsequences. Below is the complete algorithm.
+
+

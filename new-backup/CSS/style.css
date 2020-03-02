@@ -1,0 +1,31 @@
+.text-tool{
+    position: relative;
+    padding: 10px;
+
+}
+
+.text-tool  .text-hover{
+     /* visibility: hidden; */
+
+     background-color: black;
+     color: white;
+     padding: 10px;
+     position: absolute;
+     top: 0;
+}
+
+.text-tool:hover  .text-hover{
+    visibility: visible;
+}   
+
+.text-hover:after{
+    content: " ";
+    position: absolute;
+    top: 50%;
+    left: 100%; /* To the right of the tooltip */
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent black;
+
+}

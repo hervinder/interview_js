@@ -1,0 +1,196 @@
+import "./styles.css";
+
+console.log("test");
+
+function debounce(fn, wait) {
+  let timer = "";
+  console.log("time 1");
+  return function(...args) {
+    let fnCall = function() {
+      fn.apply(this, arguments);
+      console.log("time 3");
+    };
+    console.log("time 2");
+    clearTimeout(timer);
+    timer = setTimeout(fnCall, wait);
+  };
+}
+
+let fetchCall = async name => {
+  let options = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+  console.log("heloo");
+  try {
+    console.log("334");
+    const response = await fetch(
+      "https://swapi.co/api/people/?search=" + name + "",
+      options
+    );
+    const json = await response.json();
+
+    return json;
+  } catch {}
+};
+function list(listItem) {
+  console.log("list");
+  let list = `
+  <div>
+   ${listItem.map(list => `<li>${list.name}</li>`).join("\n ")}</div>
+  `;
+
+  let listParent = document.getElementById("autocomplete");
+  listParent.innerHTML = list;
+}
+let getFetch = async () => {
+  var input = document.getElementById("inputText").value;
+  let listParent = document.getElementById("autocomplete");
+  console.log("input", input);
+  if (input) {
+    let name = await fetchCall(input);
+    let filterName = name.results;
+    list(filterName);
+  } else {
+    listParent.innerHTML = "";
+    return;
+  }
+  // if (input === "" || input === null) {
+  //   console.log("input");
+
+  // } else {
+
+  // }
+};
+function autocomplete() {
+  console.log("debounce");
+}
+document.getElementById("inputText").addEventListener("input", function() {
+  // getFetch();
+
+
+});
+// https://swapi.co/api/people/?search=l
+
+
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Parcel Sandbox</title>
+    <meta charset="UTF-8" />
+  </head>
+
+  <body>
+    <div id="app">
+      <div>
+        Search
+        <input type="text" id="inputText" />
+      </div>
+      <div id="autocomplete"></div>
+    </div>
+
+    <script src="src/index.js"></script>
+  </body>
+</html>
+
+
+
+
+
+////////////
+// A --|
+//     |-- D --|
+// B --|       |-- E
+//     |       |
+// C --|-------|
+
+function runTasks(tasks,fn){
+    
+    for(let key in tasks){
+        
+        let taskJob = tasks[key];
+        if(taskJob.dependencies.length === 0){
+             
+            taskJob.job(function(state){
+                
+              
+                
+              
+               taskJob['state'] = 'completed';
+              //   console.log("taskJob",taskJob);
+              
+              
+            })
+          
+        }
+        else{
+            taskJob.dependencies.map(dependency=>{
+                
+               
+                console.log(tasks[dependency].state);
+            })
+            
+        }
+        
+        
+        
+    }
+    
+  
+  }
+  
+  var tasks = {
+      'a': {
+        job: function (finish) {
+          setTimeout(function () {
+            console.log('a done');
+            finish();
+          }, 5000);
+        },
+        dependencies: []
+      },
+      'b': {
+        job: function (finish) {
+          setTimeout(function () {
+            console.log('b done');
+            finish();
+          }, 2000);
+        }, 
+        dependencies: []
+      },
+      'c': {
+        job: function (finish) {
+          setTimeout(function () {
+            console.log('c done');
+            finish();
+          }, 2000);
+        },
+        dependencies: []
+      },
+      'd': {
+        job: function (finish) {
+          setTimeout(function () {
+            console.log('d done');
+            finish();
+          }, 1000);
+        },
+         dependencies: ['a', 'b']
+      },
+      'e': {
+        job: function (finish) {
+          setTimeout(function () {
+            console.log('e done');
+            finish();
+          }, 2000);
+        },
+        dependencies: ['c', 'd']
+      }
+    };
+  
+    runTasks(tasks, function () {
+      console.log('all done');
+    });
