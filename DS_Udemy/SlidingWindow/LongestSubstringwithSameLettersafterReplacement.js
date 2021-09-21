@@ -15,7 +15,7 @@ Input: String="abccde", k=1
 Output: 3
 Explanation: Replace the 'b' or 'd' with 'c' to have the longest repeating substring "ccc".
 '''
-
+https://www.youtube.com/watch?v=00FmUN1pkGE&ab_channel=NickWhite
 
 */
 

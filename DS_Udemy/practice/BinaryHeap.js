@@ -65,4 +65,16 @@ class maxHeap {
       parentIndex = swap;
     }
   }
+
+  topKElements(array, k) {
+    let maxHeap = [];
+    for (let index = 0; index < array.length; index++) {
+      const element = array[index];
+      this.insert(element);
+      if (this.values.length > k) {
+        this.extractMax();
+      }
+    }
+    console.log("this", this.values);
+  }
 }
