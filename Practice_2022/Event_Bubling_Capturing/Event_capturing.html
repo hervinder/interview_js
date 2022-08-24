@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        margin: 0 auto;
+        max-width: 380px;
+        width: 100%;
+      }
+
+      .title {
+        border-left: 5px solid #e1e1e1;
+        padding-left: 5px;
+      }
+
+      .budget {
+        border: 5px solid #e1e1e1;
+        padding: 5px;
+        width: 20%;
+      }
+
+      .list {
+        border: 5px solid #e1e1e1;
+        box-shadow: 1px 3px 8px #888;
+        cursor: pointer;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .item {
+        background: #eee;
+        padding: 10px 15px;
+      }
+
+      .purchased {
+        text-decoration: line-through;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="title">Shopping List</h1>
+
+    <ul class="list">
+      <li class="item">
+        MacBook Pro
+        <input class="budget" type="number" min="1" />
+      </li>
+      <li class="item">
+        Logitech MX Keys
+        <input class="budget" type="number" min="1" />
+      </li>
+      <li class="item">
+        Sony a6400 camera
+        <input class="budget" type="number" min="1" />
+      </li>
+      <li class="item">
+        Boya universal cardioid microphone
+        <input class="budget" type="number" min="1" />
+      </li>
+      <li class="item">
+        Light ring
+        <input class="budget" type="number" min="1" />
+      </li>
+    </ul>
+  </body>
+  <script>
+    /**
+     * Event Capturing - Phase 1
+     * Uncomment the code below to see capturing in action
+     */
+    document.querySelector(".list").addEventListener(
+      "click",
+      function (event) {
+        console.info(`${event.type} event fired on ${this.nodeName}`);
+        event.target.style.background = "#eee";
+
+        console.log("target:", event.target);
+        console.log("currentTarget:", event.currentTarget);
+        console.log("eventPhase:", event.eventPhase);
+      },
+      true
+    );
+
+    /**
+     * Event Target - Phase 2
+     */
+    // document.querySelector(".list").addEventListener("focus", function (event) {
+    //   console.info(`${event.type} event fired on ${this.nodeName}`);
+    //   event.target.style.background = "#eee";
+
+    //   console.log("target:", event.target);
+    //   console.log("currentTarget:", event.currentTarget);
+    //   console.log("eventPhase:", event.eventPhase);
+    // });
+
+    // Cancel effect
+    document.querySelector(".list").addEventListener(
+      "blur",
+      function (event) {
+        event.target.style.background = "";
+      },
+      true
+    );
+  </script>
+</html>
+
+<!-- interesting read 
+focus and blur do not bulb up the event,
+so focus and event have to event capturing event.
+focusin and focusout support both event bubbling and event capturing.
+Here are some examples in native JavaScript:
+
+blur (focusout is the same but it actually bubbles).
+focus (focusin is the same but it actually bubbles).
+mouseleave (mouseout is the same but it actually bubbles).
+mouseenter (mouseover is the same but it actually bubbles).
+load, unload, abort, error, beforeunload.
+
+https://www.freecodecamp.org/news/event-propagation-event-bubbling-event-catching-beginners-guide/
+-->
+<!-- //https://www.quirksmode.org/blog/archives/2008/04/delegating_the.html -->

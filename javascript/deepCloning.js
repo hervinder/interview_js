@@ -1,9 +1,9 @@
 function stringifyNumber(obj) {
   var newObj = {};
   for (var key in obj) {
-    if (typeof obj[key] === 'number') {
+    if (typeof obj[key] === "number") {
       newObj[key] = obj[key].toString();
-    } else if (typeof obj[key] === 'object' && !Array.isArray(obj[key])) {
+    } else if (typeof obj[key] === "object" && !Array.isArray(obj[key])) {
       newObj[key] = stringifyNumber(obj[key]);
     } else {
       newObj[key] = obj[key];
@@ -12,27 +12,19 @@ function stringifyNumber(obj) {
   return newObj;
 }
 
-
 function deepCloning(obj) {
   var newObj1 = {};
 
   for (var key in obj) {
-
-    if (typeof obj[key] === 'object' && !Array.isArray(obj[key])) {
+    if (typeof obj[key] === "object" && !Array.isArray(obj[key])) {
       newObj1[key] = deepCloning(obj[key]);
-
+    } else {
+      newObj1[key] = obj[key];
     }
-    else {
-      newObj1[key] = obj[key]
-    }
-
   }
 
-  return newObj1
-
-
+  return newObj1;
 }
-
 
 obj23 = {
   num: 1,
@@ -41,23 +33,19 @@ obj23 = {
     val: 4,
     info: {
       isRight: true,
-      random: 66
-    }
-  }
-}
-
+      random: 66,
+    },
+  },
+};
 
 var clone = stringifyNumber(obj23);
 console.log(clone);
 
-
 var deep = deepCloning(obj23);
 console.log(deep);
 
-
 function fetchJsonValueByPath(obj, path) {
-
-  var pathArray = path.split('.');
+  var pathArray = path.split(".");
 
   for (var i = 0, n = pathArray.length; i < n; ++i) {
     var key = pathArray[i];
@@ -71,24 +59,19 @@ function fetchJsonValueByPath(obj, path) {
 }
 
 function fetchJsonValueByPath(obj, path) {
-
-  let path = path.split('.');
+  let path = path.split(".");
 
   for (let i = 0; i < path.length; i++) {
-
     var key = path[i];
 
     if (key in obj) {
-      obj = obj[key]
+      obj = obj[key];
+    } else {
+      return;
     }
-    else {
-      return
-    }
-
-
   }
 
   return obj;
 }
 
-console.log(fetchJsonValueByPath(obj23, 'data.val'));
+console.log(fetchJsonValueByPath(obj23, "data.val"));

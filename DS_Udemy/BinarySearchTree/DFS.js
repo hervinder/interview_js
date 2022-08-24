@@ -131,8 +131,8 @@ class BinarySearchTree {
     }
     DFS_inOrder_recursively(this.root);
   }
-
-  hasPathSum() {
+  /** right solution for has path sum II  */
+  hasPathSumII() {
     let node = this.root;
     let sum = 22;
     let matched = false;

@@ -27,7 +27,7 @@ function sorted(arr) {
       right--;
     }
   }
-  for (let i = 0; i < n; i++) arr[i] = result[i];
+  // for (let i = 0; i < n; i++) arr[i] = result[i];
   console.log("arr", result);
 }
 

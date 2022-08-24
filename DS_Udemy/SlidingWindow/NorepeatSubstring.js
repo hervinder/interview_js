@@ -12,8 +12,7 @@ Explanation: The longest substring without any repeating characters is "ab".
 Example 3:
 Input: String="abccde"
 Output: 3
-Explanation: Longest substrings without any repeating characters are "abc" & "cde".
-'''
+Explanation: Longest substrings without any repeating characters are "abc" & "cde"
 */
 
 function noRepeatSubString(string) {
@@ -31,7 +30,7 @@ function noRepeatSubString(string) {
       start < end
     ) {
       maxLength = Math.max(maxLength, end - start);
-      distinctObj = distinctObj.splice(1, distinctObj.length - 1);
+      distinctObj.shift();
       start++;
     }
   }

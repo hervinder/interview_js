@@ -78,6 +78,7 @@ class MaxBinaryHeap {
       this.insert(element);
       if (this.values.length > k) {
         this.extractMax();
+        index--;
       }
     }
     console.log("this", this.values);
