@@ -7,11 +7,6 @@ Function.prototype.myBind = function (...args) {
   };
 };
 
-let personName = {
-  firstname: "Hervinder",
-  lastname: "Singh",
-};
-
 Function.prototype.myCall = function (...args) {
   const objReference = args.shift();
   objReference.fn = this;
@@ -23,6 +18,10 @@ Function.prototype.myApply = function (objReference, args) {
   return objReference.fn(...args);
 };
 
+let personName = {
+  firstname: "Hervinder",
+  lastname: "Singh",
+};
 function printName(hometown, state) {
   console.log(
     "name of the person",

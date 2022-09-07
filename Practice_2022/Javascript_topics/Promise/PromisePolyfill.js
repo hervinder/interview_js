@@ -8,6 +8,7 @@ class newPromise {
       executor(this._resolve.bind(this), this._reject.bind(this));
     } catch (error) {}
   }
+
   _runresolveHandler() {
     console.log("resolution", this.resolution);
     if (this.resolution.length > 0) {
@@ -123,7 +124,7 @@ var promise = new newPromise(function (resolve, reject) {
   console.log("promise  start");
   setTimeout(function () {
     console.log("promise 1 resolve");
-    reject("fuck of");
+    reject("fuck off");
   }, 1000);
   //     resolve("10");
   //   reject("fuck off");

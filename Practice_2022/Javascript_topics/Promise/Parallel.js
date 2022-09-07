@@ -62,3 +62,44 @@ const all = parallel([async1, async2, async3]);
 all((error, data) => {
   console.log(error, data); // [1, 2, 3]
 }, 1);
+
+function parallel_1(sequenceFn) {
+  return function (callback, item) {
+    const promisify = (fn) => {
+      return function () {};
+    };
+
+    const promiseFn = sequenceFn.map((fn) => {
+      return function () {
+        return new Promise((resolve, reject) => {
+          fn((error, value) => {
+            if (error) {
+              reject(error);
+            }
+            resolve(value);
+          });
+        });
+      };
+    });
+
+    let promise = Promise.resolve(item);
+    let fnCount = 0;
+    const task = [];
+    let taskCompleted = true;
+    promiseFn.forEach((fn) => {
+      promise
+        .then(fn)
+        .then((completedTask) => {
+          fnCount++;
+          task.push(completedTask);
+          if (taskCompleted && fnCount === fn.length) {
+            callback(undefined, task);
+          }
+        })
+        .catch((error) => {
+          taskCompleted = false;
+          callback(error);
+        });
+    });
+  };
+}

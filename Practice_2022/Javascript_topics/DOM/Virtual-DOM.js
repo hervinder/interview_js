@@ -82,6 +82,46 @@ function virtualize(element) {
   return result;
 }
 
+// Practice
+
+function virtualize_p(element) {
+  let result = {
+    type: element.tagName.toLowerCase(),
+    props: {},
+  };
+  let props = {};
+
+  if (element.hasAttributes()) {
+    for (let { name, value } of element.attributes) {
+      if (name === "classname") {
+        props.className = value;
+      } else {
+        props[name] = value;
+      }
+    }
+  }
+
+  const children = [];
+  if (element.hasChildNodes()) {
+    for (let node of element.childNodes) {
+      if (node.nodeType === 1) {
+        children.push(virtualize(node));
+      } else {
+        children.push(node.textContent);
+      }
+    }
+  }
+
+  if (children.length === 1) {
+    props.children = children[0];
+  } else {
+    props.children = children;
+  }
+
+  result.props = props;
+  return result;
+}
+
 const root = document.getElementById("node1");
 virtualize(root);
 
@@ -126,6 +166,36 @@ function render(obj) {
   return ele;
 }
 
+function render_p(jsonObj) {
+  const {
+    type,
+    props: { className, children, ...restProps },
+  } = jsonObj;
+
+  const ele = document.createElement(type);
+
+  if (className) {
+    ele.classList.add(className);
+  }
+
+  if (children.length === 1) {
+    children = [children];
+  }
+
+  children.forEach((child) => {
+    if (typeof child === "string") {
+      ele.append(document.createTextNode(child));
+    } else {
+      ele.append(render_p(child));
+    }
+  });
+  if (restProps) {
+    Object.keys(restProps).forEach(([key, value]) => {
+      ele.setAttribute(key, value);
+    });
+  }
+  return ele;
+}
 //
 // const el = <div>
 //  <h1> this is </h1>
